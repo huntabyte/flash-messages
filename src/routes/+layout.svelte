@@ -2,19 +2,39 @@
 	import "../app.css";
 	import { page } from "$app/stores";
 	import { Navbar, NavBrand, NavHamburger, NavUl, NavLi, Button } from "flowbite-svelte";
-
+	import toast, { Toaster } from "svelte-french-toast";
+	import { initFlash } from "sveltekit-flash-message/client";
+	import { beforeNavigate } from "$app/navigation";
 	const navigation = [
 		{ label: "Home", href: "/" },
 		{ label: "Pricing", href: "/pricing" },
 		{ label: "Contacts", href: "/contacts" },
 		{ label: "Account", href: "/account" }
 	];
+
+	const flash = initFlash(page);
+
+	beforeNavigate((nav) => {
+		if ($flash && nav.from?.url.toString() != nav.to?.url.toString()) {
+			$flash = undefined;
+		}
+	});
+
+	$: if ($flash) {
+		switch ($flash.type) {
+			case "success":
+				toast.success($flash.message);
+				break;
+			case "error":
+				toast.error($flash.message);
+		}
+	}
 </script>
 
 <svelte:head>
 	<title>Contactly</title>
 </svelte:head>
-
+<Toaster />
 <div class="flex h-full flex-col">
 	<Navbar let:hidden let:toggle>
 		<NavBrand href="/">

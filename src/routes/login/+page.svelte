@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { initFlash } from "sveltekit-flash-message/client";
+	import { getFlash } from "sveltekit-flash-message/client";
 	import { page } from "$app/stores";
 	import { Card, Button, Alert } from "flowbite-svelte";
 	import InfoIcon from "$lib/components/icons/InfoIcon.svelte";
 
-	const flash = initFlash(page);
+	const flash = getFlash(page);
 </script>
 
 <div class="py-20">

@@ -12,8 +12,13 @@ body {
 	@apply h-full;
 }
 body {
-	@apply text-gray-900 dark:bg-gray-900 dark:text-white;
+	@apply dark:bg-gray-900 dark:text-white;
 }
+
+nav {
+	@apply bg-white dark:bg-gray-900 !important;
+}
+
 h1,
 h2,
 h3,
