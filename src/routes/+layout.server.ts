@@ -1,8 +1,7 @@
 import type { LayoutServerLoad } from "./$types";
-import { loadFlashMessage } from "sveltekit-flash-message/server";
 
-export const load: LayoutServerLoad = loadFlashMessage(async (event) => {
+export const load: LayoutServerLoad = async (event) => {
 	return {
-		anything: "anything"
+		someData: "anything you want"
 	};
-});
+};
