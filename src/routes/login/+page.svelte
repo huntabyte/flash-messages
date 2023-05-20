@@ -1,9 +1,25 @@
 <script lang="ts">
-	import { Card, Button } from "flowbite-svelte";
+	import { page } from "$app/stores";
+	import { getFlash } from "sveltekit-flash-message/client";
+	import { Card, Button, Alert } from "flowbite-svelte";
+	import InfoIcon from "$lib/components/icons/InfoIcon.svelte";
+
+	const flash = getFlash(page);
 </script>
 
 <div class="py-20">
 	<div class="flex w-full flex-col items-center">
+		{#if $flash && $flash.message}
+			<div class="pb-4">
+				<Alert dismissable color={$flash.type === "success" ? "green" : "red"}>
+					<span slot="icon">
+						<InfoIcon />
+					</span>
+					<span class="font-medium capitalize">{$flash.type}!</span>
+					{$flash.message}
+				</Alert>
+			</div>
+		{/if}
 		<!-- Login Page Header -->
 		<div class="max-w-2xl text-center">
 			<h1 class="text-4xl font-semibold">Login to your account</h1>

@@ -1,14 +1,37 @@
 <script lang="ts">
 	import "../app.css";
 	import { page } from "$app/stores";
+	import { initFlash } from "sveltekit-flash-message/client";
 	import { Navbar, NavBrand, NavHamburger, NavUl, NavLi, Button } from "flowbite-svelte";
-	import { Toaster } from "svelte-french-toast";
+	import toast, { Toaster } from "svelte-french-toast";
+	import { beforeNavigate } from "$app/navigation";
 	const navigation = [
 		{ label: "Home", href: "/" },
 		{ label: "Pricing", href: "/pricing" },
 		{ label: "Contacts", href: "/contacts" },
 		{ label: "Account", href: "/account" }
 	];
+
+	const flash = initFlash(page);
+
+	beforeNavigate((nav) => {
+		if ($flash && nav.from?.url.toString() !== nav.to?.url.toString()) {
+			$flash = undefined;
+		}
+	});
+
+	// $: if ($flash) {
+	// 	switch ($flash.type) {
+	// 		case "success":
+	// 			toast.success($flash.message);
+	// 			break;
+	// 		case "error":
+	// 			toast.error($flash.message);
+	// 			break;
+	// 	}
+	// }
+
+	$: console.log($flash);
 </script>
 
 <svelte:head>
